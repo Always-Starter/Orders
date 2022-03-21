@@ -3,7 +3,37 @@ html {
 }
 
 table {
+    width: 80%;
+    margin: 0 auto;
+    line-height: 1.5rem;
+    text-align: left;
+    border-collapse: collapse;
+    border-color: #dee2e6;
+    border-width: 2px;
+    border-style: solid;
+
     thead {
         font-weight: bold;
+    }
+
+    thead tr {
+        line-height: 2rem;
+        text-align: left;
+    }
+
+    tr {
+        border-bottom: 1px solid #333;
+    }
+
+    tr, td, th {
+        padding: 0.5rem;
+    }
+
+    tbody {
+        border-top: 2px solid black;
+    }
+
+    tbody>tr:nth-of-type(odd) {
+        background-color:  #f2f2f2;
     }
 }

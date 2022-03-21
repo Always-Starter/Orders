@@ -4,14 +4,12 @@ import { OrdersProvider } from '../contexts/OrdersProvider';
 import OrderTable from './OrderTable';
 
 function App() {
-  // const [id, setId] = useLocalStorage('id')
 
   return (
     <SocketProvider>
       <OrdersProvider>
         <OrderTable />
       </OrdersProvider>
-      <div>You should see a table here</div>
     </SocketProvider>
   );
 }

@@ -3,17 +3,17 @@ import { useOrders } from '../contexts/OrdersProvider';
 
 export default function OrderTable() {
     const { orders } = useOrders();
-    // console.log('Hi, here are your orders', orders);
+
     return (
         <table>
             <thead>
                 <tr>
-                <th>#</th>
-                <th>Order Status</th>
-                <th>Order Price</th>
-                <th>Customer</th>
-                <th>Item</th>
-                <th>Destination</th>
+                <th width="10%">Order ID</th>
+                <th width="10%">Order Status</th>
+                <th width="10%">Order Price</th>
+                <th width="15%">Customer</th>
+                <th width="20%">Item</th>
+                <th width="35%">Destination</th>
                 </tr>
             </thead>
             <tbody>

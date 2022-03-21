@@ -1,37 +1,53 @@
-import React, { useContext, useState, useEffect, useCallback } from 'react'
+import React, { useContext, useState, useEffect, useRef } from 'react'
 import { useSocket } from './SocketProvider';
 
 const OrdersContext = React.createContext();
 
 export function useOrders() {
-  return useContext(OrdersContext);
+    return useContext(OrdersContext);
 }
 
 export function OrdersProvider({ id, children }) {
     const [orders, setOrders] = useState([]);
-//   const [conversations, setConversations] = useLocalStorage('conversations', [])
-//   const [selectedConversationIndex, setSelectedConversationIndex] = useState(0)
-//   const { contacts } = useContacts()
-  const socket = useSocket();
+    const socket = useSocket();
+    const prevOrderstRef = useRef([]);
 
-  useEffect(() => {
-    if (socket == null) return;
+    useEffect(() => {
+        if (socket == null) return;
+        socket.on('order_event', (newOrders) => {
+            let combinedOrders = [];
+            prevOrderstRef.current.forEach(element => {
+                const indexOfSameOrder = newOrders.findIndex(order => order.id === element.id);
 
-    socket.on('order_event', (orders) => {
-        console.log(orders);
-        setOrders(orders);
-    })
+                if (indexOfSameOrder === -1) {
+                    combinedOrders.push(element);
+                } else {
+                    combinedOrders.push(newOrders[indexOfSameOrder]);
+                    // Mark the updated order as found to avoid another loop check
+                    newOrders[indexOfSameOrder].isFound = true;
+                }
+            });
 
-    return () => socket.off('receive-message')
-  }, [socket])
+            newOrders.forEach(item => {
+                if (!item.isFound) {
+                    combinedOrders.push(item);
+                }
+            });
 
-  const value = {
-    orders,
-  }
+            prevOrderstRef.current = combinedOrders;
+            setOrders(combinedOrders);
+        })
 
-  return (
-    <OrdersContext.Provider value={value}>
-      {children}
-    </OrdersContext.Provider>
-  )
+        return () => socket.off('order_event')
+    }, [socket])
+
+    const value = {
+        orders,
+    }
+
+    return (
+        <OrdersContext.Provider value={value}>
+            {children}
+        </OrdersContext.Provider>
+    )
 }
