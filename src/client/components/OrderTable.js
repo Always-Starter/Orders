@@ -1,6 +1,5 @@
 import React from 'react'
 import { useOrders } from '../contexts/OrdersProvider';
-import '../app.css';
 
 export default function OrderTable() {
     const { orders } = useOrders();

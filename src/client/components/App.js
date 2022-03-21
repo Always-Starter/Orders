@@ -1,5 +1,4 @@
 import React from 'react'
-// import useLocalStorage from '../hooks/useLocalStorage';
 import { SocketProvider } from '../contexts/SocketProvider';
 import { OrdersProvider } from '../contexts/OrdersProvider';
 import OrderTable from './OrderTable';
