@@ -3,8 +3,7 @@ html {
 }
 
 table {
-    width: 80%;
-    margin: 0 auto;
+    width: 100%;
     line-height: 1.5rem;
     text-align: left;
     border-collapse: collapse;
@@ -14,6 +13,7 @@ table {
 
     thead {
         font-weight: bold;
+        font-size: 1.2rem;
     }
 
     thead tr {
@@ -35,5 +35,48 @@ table {
 
     tbody>tr:nth-of-type(odd) {
         background-color:  #f2f2f2;
+    }
+
+    tbody tr td:nth-child(2) {
+        font-weight: bold;
+    }
+}
+
+.orders__container {
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.price-search{
+    &__container {
+        text-align: left;
+        margin: 2rem 0;
+        font-size: 1.2rem;
+        font-weight: bold;
+        
+        input {
+            font-size: 1.2rem;
+            padding: 0.5rem;
+            color: #333;
+            border-radius: 4px;
+            border-color: lightgray;
+            margin-left: 0.8rem;
+        }
+    }
+}
+
+.page-title {
+    text-align: center;
+    font-weight: bold;
+    font-size: 2rem;
+}
+
+.order_table--count {
+    text-align: left;
+    font-size: 1rem;
+
+    span {
+        font-weight: bold;
     }
 }

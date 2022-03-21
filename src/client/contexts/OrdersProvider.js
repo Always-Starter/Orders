@@ -9,6 +9,7 @@ export function useOrders() {
 
 export function OrdersProvider({ id, children }) {
     const [orders, setOrders] = useState([]);
+    const [searchText, setSearchText] = useState('');
     const socket = useSocket();
     const prevOrderstRef = useRef([]);
 
@@ -23,7 +24,7 @@ export function OrdersProvider({ id, children }) {
                     combinedOrders.push(element);
                 } else {
                     combinedOrders.push(newOrders[indexOfSameOrder]);
-                    // Mark the updated order as found to avoid another loop check
+                    // Mark the updated order as found to avoid duplicate check
                     newOrders[indexOfSameOrder].isFound = true;
                 }
             });
@@ -38,12 +39,14 @@ export function OrdersProvider({ id, children }) {
             setOrders(combinedOrders);
         })
 
-        return () => socket.off('order_event')
+        return () => socket.off('order_event');
     }, [socket])
 
     const value = {
         orders,
-    }
+        searchText,
+        setSearchText,
+    };
 
     return (
         <OrdersContext.Provider value={value}>
